@@ -30,10 +30,16 @@ use App\Http\Controllers\Admin\Tag\TagStoreController;
 use App\Http\Controllers\Admin\Main\AdminController;
 use App\Http\Controllers\Admin\Tag\TagUpdateController;
 use App\Http\Controllers\Main\IndexController;
+use App\Http\Controllers\Personal\PersonalController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Main'], function () {
     Route::get('/', [IndexController::class , '__invoke']);
+});
+
+Route::group(['prefix' => 'personal', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [PersonalController::class, '__invoke']);
 });
 
 
